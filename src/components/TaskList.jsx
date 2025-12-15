@@ -1,6 +1,5 @@
 import React from "react";
 import TaskItem from "./TaskItem";
-import { getUserById } from "../utils/storage";
 
 const TaskList = ({
   tasks,

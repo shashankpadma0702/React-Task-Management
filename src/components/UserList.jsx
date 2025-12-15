@@ -1,18 +1,14 @@
 import React from "react";
 import { useDrop } from "react-dnd";
-import { getUserById, getTasksByUser } from "../utils/storage";
+import { getTasksByUser } from "../utils/storage";
 
-const UserCard = ({ user, onDrop, isOver }) => {
+const UserCard = ({ user, onDrop }) => {
   const userTasks = getTasksByUser(user.id);
 
-  const [{ canDrop }, drop] = useDrop(
+  const [, drop] = useDrop(
     () => ({
       accept: "task",
       drop: (item) => onDrop(item.id, user.id),
-      collect: (monitor) => ({
-        canDrop: monitor.canDrop(),
-        isOver: monitor.isOver(),
-      }),
     }),
     [user.id, onDrop]
   );
@@ -20,7 +16,7 @@ const UserCard = ({ user, onDrop, isOver }) => {
   return (
     <div
       ref={drop}
-      className={`user-card ${isOver ? "drop-target" : ""}`}
+      className="user-card drop-target"
       style={{
         background: "white",
         border: "2px solid #e1e1e1",
@@ -28,8 +24,8 @@ const UserCard = ({ user, onDrop, isOver }) => {
         padding: "20px",
         marginBottom: "15px",
         transition: "all 0.3s",
-        borderColor: isOver ? "#667eea" : "#e1e1e1",
-        backgroundColor: isOver ? "rgba(102, 126, 234, 0.1)" : "white",
+        borderColor: "#667eea",
+        backgroundColor: "rgba(102, 126, 234, 0.1)",
       }}
     >
       <div
